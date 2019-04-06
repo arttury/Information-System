@@ -1,5 +1,9 @@
 package com.labs.group8.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class BookInstance {
     private int id;
     private Book book;
@@ -18,6 +22,7 @@ public class BookInstance {
         return id;
     }
 
+    @XmlElement
     public void setId(int id) {
         this.id = id;
     }
@@ -26,6 +31,7 @@ public class BookInstance {
         return book;
     }
 
+    @XmlElement
     public void setBook(Book book) {
         this.book = book;
     }
@@ -34,6 +40,7 @@ public class BookInstance {
         return isIssued;
     }
 
+    @XmlElement
     public void setIssued(boolean issued) {
         isIssued = issued;
     }

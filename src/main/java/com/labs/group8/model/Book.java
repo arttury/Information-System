@@ -1,7 +1,13 @@
 package com.labs.group8.model;
 
+import com.labs.group8.utils.LocalDateAdapter;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 
+@XmlRootElement
 public class Book {
     private String authors;
     private String title;
@@ -22,6 +28,7 @@ public class Book {
         return authors;
     }
 
+    @XmlElement
     public void setAuthors(String authors) {
         this.authors = authors;
     }
@@ -30,6 +37,7 @@ public class Book {
         return title;
     }
 
+    @XmlElement
     public void setTitle(String title) {
         this.title = title;
     }
@@ -38,6 +46,8 @@ public class Book {
         return date;
     }
 
+    @XmlElement
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     public void setDate(LocalDate date) {
         this.date = date;
     }
@@ -46,6 +56,7 @@ public class Book {
         return pages;
     }
 
+    @XmlElement
     public void setPages(int pages) {
         this.pages = pages;
     }
