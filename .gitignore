@@ -26,3 +26,6 @@ hs_err_pid*
 target
 .idea
 *.iml
+
+book.xml
+bookInstance.xml

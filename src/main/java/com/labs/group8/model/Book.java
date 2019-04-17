@@ -2,13 +2,13 @@ package com.labs.group8.model;
 
 import com.labs.group8.utils.LocalDateAdapter;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @XmlRootElement
-public class Book {
+public class Book implements Serializable {
     private String authors;
     private String title;
     private LocalDate date;

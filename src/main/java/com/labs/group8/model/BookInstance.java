@@ -1,20 +1,24 @@
 package com.labs.group8.model;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 @XmlRootElement
-public class BookInstance {
+public class BookInstance implements Serializable {
+
+    private ArrayList<Book> books;
     private int id;
-    private Book book;
     private boolean isIssued;
 
     public BookInstance() {
     }
 
-    public BookInstance(int id, Book book, boolean isIssued) {
+    public BookInstance(int id, ArrayList<Book> books, boolean isIssued) {
         this.id = id;
-        this.book = book;
+        this.books = books;
         this.isIssued = isIssued;
     }
 
@@ -27,13 +31,13 @@ public class BookInstance {
         this.id = id;
     }
 
-    public Book getBook() {
-        return book;
+    public ArrayList<Book> getBooks() {
+        return books;
     }
 
     @XmlElement
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBooks(ArrayList<Book> books) {
+        this.books = books;
     }
 
     public boolean isIssued() {
@@ -54,13 +58,13 @@ public class BookInstance {
 
         if (id != that.id) return false;
         if (isIssued != that.isIssued) return false;
-        return book.equals(that.book);
+        return books.equals(that.books);
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + book.hashCode();
+        result = 31 * result + books.hashCode();
         result = 31 * result + (isIssued ? 1 : 0);
         return result;
     }
@@ -69,7 +73,7 @@ public class BookInstance {
     public String toString() {
         return "BookInstance{" +
                 "id=" + id +
-                ", book=" + book +
+                ", books=" + books +
                 ", isIssued=" + isIssued +
                 '}';
     }
