@@ -11,5 +11,6 @@ public class MyInputStream extends FilterInputStream {
 
     @Override
     public void close() {
+        System.out.println("Closing");
     }
 }

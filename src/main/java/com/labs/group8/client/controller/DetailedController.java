@@ -6,7 +6,6 @@ import com.labs.group8.model.BookInstance;
 import com.labs.group8.model.BookInstances;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 public class DetailedController {
     @FXML private Label detailedID;
@@ -15,9 +14,6 @@ public class DetailedController {
     @FXML private Label detailedDate;
     @FXML private Label detailedPages;
     @FXML private Label detailedIssued;
-
-    public void setStage() {
-    }
 
     public void findInstanceByIndex(int index) {
         BookInstances bookInstances = Client.loadSavedBookInstances();
