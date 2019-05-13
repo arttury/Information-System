@@ -4,7 +4,6 @@ import com.labs.group8.client.Client;
 import com.labs.group8.model.Book;
 import com.labs.group8.model.BookInstance;
 import com.labs.group8.model.BookInstances;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
