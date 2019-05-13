@@ -12,6 +12,7 @@ public class BookInstance implements Serializable {
     private ArrayList<Book> books;
     private int id;
     private boolean isIssued;
+    private Book book;
 
     public BookInstance() {
     }

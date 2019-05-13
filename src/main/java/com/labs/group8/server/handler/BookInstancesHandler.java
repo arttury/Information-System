@@ -2,7 +2,6 @@ package com.labs.group8.server.handler;
 
 import com.labs.group8.model.BookInstance;
 import com.labs.group8.model.BookInstances;
-import com.labs.group8.model.Books;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +13,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class BookInstancesHandler implements BookHandler {
 
@@ -37,7 +35,7 @@ public class BookInstancesHandler implements BookHandler {
             FileOutputStream fileOutputStream = new FileOutputStream(BOOK_FILE);
 
             BookInstance bookInstance = (BookInstance) unmarshaller.unmarshal(new StringReader(msg));
-            bookInstances.getList().add(counter, bookInstance);
+            bookInstances.getList().add(bookInstance);
             counter++;
 
             Marshaller bookMarshaller = bookContext.createMarshaller();
@@ -88,7 +86,10 @@ public class BookInstancesHandler implements BookHandler {
                 FileOutputStream fileOutputStream = new FileOutputStream(BOOK_FILE);
 
                 BookInstance bookInstance = (BookInstance) unmarshaller.unmarshal(new StringReader(newString));
+                bookInstance.getBooks().remove(index);
+                counter--;
                 bookInstances.getList().add(index, bookInstance);
+                counter++;
 
                 Marshaller bookMarshaller = bookContext.createMarshaller();
                 bookMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

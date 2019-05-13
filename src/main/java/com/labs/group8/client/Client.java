@@ -20,84 +20,18 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Client {
+
     private static final int PORT = 4321;
     private static final Logger LOGGER = LogManager.getLogger(Client.class);
 
-    public static void main(String[] args) {
-        int indexOne = 1;
-//        add();
-//        loadSavedData();
-//        edit(indexOne);
-//        delete(indexOne);
-//        addBookInstance();
-//        deleteBookInstance(indexOne);
-//        editBookInstance(indexOne);
-//        loadSavedBookInstances();
-
-//        List list = new ArrayList();
-//        list.add(3);
-//        list.add(1);
-//        list.add(2);
-//        List list2;
-//        list2 = (List) list.stream().sorted(Comparator.naturalOrder()).collect(Collectors.toList());
-//        System.out.println(list);
-//        System.out.println(list2);
-    }
-//
-    private static void edit(int index) {
-        try( Socket socket = new Socket("localhost", PORT);
-             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream())
-        ) {
-            JAXBContext bookContext = JAXBContext.newInstance(Books.class);
-            Marshaller bookMarshaller = bookContext.createMarshaller();
-
-            Book book = new Book("Another book", "Another author",
-                    LocalDate.now(), 100);
-
-            outputStreamWriter.write("edit" + index);
-            bookMarshaller.marshal(book, outputStreamWriter);
-            outputStreamWriter.flush();
-            LOGGER.info("edit method completed");
-        } catch (IOException | JAXBException e) {
-            LOGGER.info(e);
-        }
-    }
-
-    private static void editBookInstance(int index) {
-        try( Socket socket = new Socket("localhost", PORT);
-             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream())
-        ) {
-            JAXBContext bookContext = JAXBContext.newInstance(BookInstance.class);
-            Marshaller bookMarshaller = bookContext.createMarshaller();
-
-            Book book = new Book("Another book", "Another author",
-                    LocalDate.now(), 100);
-            ArrayList<Book> bookList = new ArrayList<>();
-            bookList.add(book);
-            BookInstance bookInstances = new BookInstance(2, bookList, false);
-
-            outputStreamWriter.write("edtBookInstance" + index);
-            bookMarshaller.marshal(bookInstances, outputStreamWriter);
-            outputStreamWriter.flush();
-            LOGGER.info("edit method completed");
-        } catch (IOException | JAXBException e) {
-            LOGGER.info(e);
-        }
-    }
-
-    private static void add() {
+    public static void add(Book book) {
         try( Socket socket = new Socket("localhost", PORT);
              OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream())
          ) {
             JAXBContext bookContext = JAXBContext.newInstance(Books.class);
             Marshaller bookMarshaller = bookContext.createMarshaller();
-
-            Book book = new Book("Game", "Vasyan", LocalDate.parse("2000-10-10"), 1000);
 
             outputStreamWriter.write("add");
             bookMarshaller.marshal(book, outputStreamWriter);
@@ -108,28 +42,23 @@ public class Client {
         }
     }
 
-    private static void addBookInstance() {
+    public static void edit(int index, Book book) {
         try( Socket socket = new Socket("localhost", PORT);
              OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream())
-         ) {
-            JAXBContext bookContext = JAXBContext.newInstance(BookInstances.class);
+        ) {
+            JAXBContext bookContext = JAXBContext.newInstance(Books.class);
             Marshaller bookMarshaller = bookContext.createMarshaller();
 
-            Book book = new Book("Game of thrones", "Martin", LocalDate.parse("2000-10-10"), 1000);
-            ArrayList<Book> bookList = new ArrayList<>();
-            bookList.add(book);
-            BookInstance bookInstances = new BookInstance(1, bookList, true);
-
-            outputStreamWriter.write("adBookInstance");
-            bookMarshaller.marshal(bookInstances, outputStreamWriter);
+            outputStreamWriter.write("edit" + index);
+            bookMarshaller.marshal(book, outputStreamWriter);
             outputStreamWriter.flush();
-            LOGGER.info("add book instance method completed");
+            LOGGER.info("edit method completed");
         } catch (IOException | JAXBException e) {
             LOGGER.info(e);
         }
     }
 
-    private static void delete(int index) {
+    public static void delete(int index) {
         try(Socket socket = new Socket("localhost", PORT);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream())
         ) {
@@ -140,7 +69,39 @@ public class Client {
         }
     }
 
-    private static void deleteBookInstance(int index) {
+    public static void addBookInstance(BookInstance bookInstance) {
+        try( Socket socket = new Socket("localhost", PORT);
+             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream())
+         ) {
+            JAXBContext bookContext = JAXBContext.newInstance(BookInstances.class);
+            Marshaller bookMarshaller = bookContext.createMarshaller();
+
+            outputStreamWriter.write("adBookInstance");
+            bookMarshaller.marshal(bookInstance, outputStreamWriter);
+            outputStreamWriter.flush();
+            LOGGER.info("add book instance method completed");
+        } catch (IOException | JAXBException e) {
+            LOGGER.info(e);
+        }
+    }
+
+    public static void editBookInstance(int index, BookInstance bookInstance) {
+        try( Socket socket = new Socket("localhost", PORT);
+             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream())
+        ) {
+            JAXBContext bookContext = JAXBContext.newInstance(BookInstance.class);
+            Marshaller bookMarshaller = bookContext.createMarshaller();
+
+            outputStreamWriter.write("edtBookInstance" + index);
+            bookMarshaller.marshal(bookInstance, outputStreamWriter);
+            outputStreamWriter.flush();
+            LOGGER.info("edit method completed");
+        } catch (IOException | JAXBException e) {
+            LOGGER.info(e);
+        }
+    }
+
+    public static void deleteBookInstance(int index) {
         try(Socket socket = new Socket("localhost", PORT);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream())
         ) {
@@ -151,7 +112,8 @@ public class Client {
         }
     }
 
-    private static void loadSavedData() {
+    public static Books loadSavedData() {
+        Books book = null;
         try(Socket socket = new Socket("localhost", PORT);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
             BufferedReader inputBufferedReader = new BufferedReader(new InputStreamReader
@@ -163,14 +125,15 @@ public class Client {
             outputStreamWriter.write("load" + "\r\n");
             outputStreamWriter.flush();
 
-            Books book = (Books) bookUnmarshaller.unmarshal(new StreamSource(inputBufferedReader));
-            LOGGER.info(book.toString());
+            book = (Books) bookUnmarshaller.unmarshal(new StreamSource(inputBufferedReader));
         } catch (IOException | JAXBException e) {
             LOGGER.info(e);
         }
+        return book;
     }
 
-    private static void loadSavedBookInstances() {
+    public static BookInstances loadSavedBookInstances() {
+        BookInstances bookInstances = null;
         try(Socket socket = new Socket("localhost", PORT);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
             BufferedReader inputBufferedReader = new BufferedReader(new InputStreamReader
@@ -182,12 +145,12 @@ public class Client {
             outputStreamWriter.write("lodBookInstances" + "\r\n");
             outputStreamWriter.flush();
 
-            BookInstances bookInstances = (BookInstances) bookInstanceUnmarshaller.unmarshal(new StreamSource
+            bookInstances = (BookInstances) bookInstanceUnmarshaller.unmarshal(new StreamSource
                     (inputBufferedReader));
-            LOGGER.info(bookInstances.toString());
         } catch (IOException | JAXBException e) {
             LOGGER.info(e);
         }
+        return bookInstances;
     }
 }
 

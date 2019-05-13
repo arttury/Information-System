@@ -53,7 +53,7 @@ public class BooksHandler implements BookHandler {
             FileOutputStream fileOutputStream = new FileOutputStream(BOOK_FILE);
 
             Book book = (Book) unmarshaller.unmarshal(new StringReader(newString));
-            books.getBookList().add(counter, book);
+            books.getBookList().add(book);
             counter++;
 
             Marshaller bookMarshaller = bookContext.createMarshaller();
@@ -80,7 +80,10 @@ public class BooksHandler implements BookHandler {
                 FileOutputStream fileOutputStream = new FileOutputStream(BOOK_FILE);
 
                 Book book = (Book) unmarshaller.unmarshal(new StringReader(newString));
+                books.getBookList().remove(index);
+                counter--;
                 books.getBookList().add(index, book);
+                counter++;
 
                 Marshaller bookMarshaller = bookContext.createMarshaller();
                 bookMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

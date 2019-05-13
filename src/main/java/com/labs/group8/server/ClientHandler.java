@@ -34,6 +34,8 @@ public class ClientHandler implements Runnable {
             BookHandler bookInstancesController = new BookInstancesHandler();
             String message = inputBufferedReader.readLine();
 
+            LOGGER.info(message);
+
             if (Objects.equals(message, "load")) {
                 String xml = booksController.load();
                 printWriter.println(xml + "\r\n");
