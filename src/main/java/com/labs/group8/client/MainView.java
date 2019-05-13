@@ -121,7 +121,7 @@ public class MainView extends Application {
         stage.setScene(scene);
 
         DetailedController controller = loader.getController();
-        controller.setStage();
+        controller.setStage(stage);
         controller.findInstanceByIndex(index);
         stage.showAndWait();
     }

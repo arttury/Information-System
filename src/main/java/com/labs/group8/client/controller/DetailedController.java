@@ -6,6 +6,7 @@ import com.labs.group8.model.BookInstance;
 import com.labs.group8.model.BookInstances;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 public class DetailedController {
     @FXML private Label detailedID;
@@ -14,6 +15,8 @@ public class DetailedController {
     @FXML private Label detailedDate;
     @FXML private Label detailedPages;
     @FXML private Label detailedIssued;
+
+    private Stage stage;
 
     public void findInstanceByIndex(int index) {
         BookInstances bookInstances = Client.loadSavedBookInstances();
@@ -33,5 +36,11 @@ public class DetailedController {
         detailedDate.setText(String.valueOf(book.getDate()));
         detailedPages.setText(String.valueOf(book.getPages()));
         detailedIssued.setText(String.valueOf(bookInstance.isIssued()));
+
+        stage.setOnCloseRequest((windowEvent) -> stage.close());
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }
