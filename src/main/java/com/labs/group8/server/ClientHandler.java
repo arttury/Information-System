@@ -36,36 +36,45 @@ public class ClientHandler implements Runnable {
 
             LOGGER.info(message);
 
-            if (Objects.equals(message, "load")) {
-                String xml = booksController.load();
-                printWriter.println(xml + "\r\n");
-                printWriter.flush();
-            }
-            if (Objects.equals(message, "lodBookInstances")) {
-                String xml = bookInstancesController.load();
-                printWriter.println(xml + "\r\n");
-                printWriter.flush();
-            }
-            if (message.startsWith("add")) {
-                booksController.add(message);
-            }
-            if (message.startsWith("adBookInstance")) {
-                bookInstancesController.add(message);
-            }
-            if (message.startsWith("edit")) {
-                booksController.edit(message);
-            }
-            if (message.startsWith("edtBookInstance")) {
-                bookInstancesController.edit(message);
-            }
-            if (message.startsWith("delete")) {
-                booksController.delete(message);
-            }
-            if (message.startsWith("dltBookInstance")) {
-                bookInstancesController.delete(message);
-            }
+            bookHandler(printWriter, booksController, message);
+
+            bookInstanceHandler(printWriter, bookInstancesController, message);
         } catch (IOException e) {
             LOGGER.info(e);
+        }
+    }
+
+    private void bookInstanceHandler(PrintWriter printWriter, BookHandler bookInstancesController, String message) {
+        if (Objects.equals(message, "lodBookInstances")) {
+            String xml = bookInstancesController.load();
+            printWriter.println(xml + "\r\n");
+            printWriter.flush();
+        }
+        if (message.startsWith("adBookInstance")) {
+            bookInstancesController.add(message);
+        }
+        if (message.startsWith("edtBookInstance")) {
+            bookInstancesController.edit(message);
+        }
+        if (message.startsWith("dltBookInstance")) {
+            bookInstancesController.delete(message);
+        }
+    }
+
+    private void bookHandler(PrintWriter printWriter, BookHandler booksController, String message) {
+        if (Objects.equals(message, "load")) {
+            String xml = booksController.load();
+            printWriter.println(xml + "\r\n");
+            printWriter.flush();
+        }
+        if (message.startsWith("add")) {
+            booksController.add(message);
+        }
+        if (message.startsWith("edit")) {
+            booksController.edit(message);
+        }
+        if (message.startsWith("delete")) {
+            booksController.delete(message);
         }
     }
 }

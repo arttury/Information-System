@@ -1,7 +1,6 @@
 package com.labs.group8.model;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ public class BookInstance implements Serializable {
     private ArrayList<Book> books;
     private int id;
     private boolean isIssued;
-    private Book book;
 
     public BookInstance() {
     }

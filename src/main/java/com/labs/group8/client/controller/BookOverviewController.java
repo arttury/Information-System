@@ -33,17 +33,10 @@ public class BookOverviewController {
     private MainView mainView;
 
     /**
-     * Конструктор.
-     * Конструктор вызывается раньше метода initialize().
-     */
-    public BookOverviewController() {
-    }
-
-    /**
      * Инициализация класса-контроллера. Этот метод вызывается автоматически
      * после того, как fxml-файл будет загружен.
      */
-    @FXML private void initialize() {
+    public void initialize() {
         Books books = Client.loadSavedData();
         if (books != null) {
             bookObservableList.addAll(books.getBookList());
@@ -60,7 +53,7 @@ public class BookOverviewController {
     /**
      * Вызывается главным приложением, которое даёт на себя ссылку.
      *
-     * @param mainView
+     * @param mainView для вызова MainView
      */
     public void setMainView(MainView mainView) {
         this.mainView = mainView;
@@ -69,7 +62,7 @@ public class BookOverviewController {
 //        mainLV.setItems(mainView.getBookInstanceData());
     }
 
-    public MainView getMainView() {
+    private MainView getMainView() {
         return mainView;
     }
 

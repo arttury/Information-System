@@ -28,14 +28,9 @@ public class AddEditController {
     private ObservableList bookObservableList = FXCollections.observableArrayList();
     private ArrayList<Book> list = new ArrayList<>();
 
-    public AddEditController() {
-    }
-
-    @FXML private void initialize() {
+    public void initialize() {
         Books books = Client.loadSavedData();
-        for (int i = 0; i < books.getBookList().size(); i++) {
-            bookObservableList.add(books.getBookList().get(i));
-        }
+        bookObservableList.addAll(books.getBookList());
         bookChoiceBox.setItems(bookObservableList);
     }
 

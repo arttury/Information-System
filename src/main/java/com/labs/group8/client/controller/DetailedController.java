@@ -16,10 +16,7 @@ public class DetailedController {
     @FXML private Label detailedPages;
     @FXML private Label detailedIssued;
 
-    private Stage stage;
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void setStage() {
     }
 
     public void findInstanceByIndex(int index) {

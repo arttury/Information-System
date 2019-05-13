@@ -32,14 +32,7 @@ public class MainView extends Application {
     }
 
     /**
-     * Constructor
-     */
-    public MainView() {
-    }
-
-    /**
      * Returns the data as an observable list of Persons.
-     * @return
      */
     public ObservableList<Book> getBookData() {
         return bookData;
@@ -56,10 +49,7 @@ public class MainView extends Application {
 
         showBookOverview();
 
-        primaryStage.setOnCloseRequest((windowEvent) -> {
-            Platform.exit();
-            System.exit(0);
-        });
+        primaryStage.setOnCloseRequest((windowEvent) -> Platform.exit());
     }
 
     public void addBookInstance() {
@@ -75,7 +65,10 @@ public class MainView extends Application {
         Stage stage = new Stage();
         stage.setTitle("Add/Edit Book");
         stage.initOwner(primaryStage);
-        Scene scene = new Scene(anchorPane);
+        Scene scene = null;
+        if (anchorPane != null) {
+            scene = new Scene(anchorPane);
+        }
         stage.setScene(scene);
 
         AddEditController controller = loader.getController();
@@ -97,7 +90,10 @@ public class MainView extends Application {
         Stage stage = new Stage();
         stage.setTitle("Add/Edit Book");
         stage.initOwner(primaryStage);
-        Scene scene = new Scene(anchorPane);
+        Scene scene = null;
+        if (anchorPane != null) {
+            scene = new Scene(anchorPane);
+        }
         stage.setScene(scene);
 
         AddEditController controller = loader.getController();
@@ -118,11 +114,14 @@ public class MainView extends Application {
         Stage stage = new Stage();
         stage.setTitle("Detailed Information");
         stage.initOwner(primaryStage);
-        Scene scene = new Scene(anchorPane);
+        Scene scene = null;
+        if (anchorPane != null) {
+            scene = new Scene(anchorPane);
+        }
         stage.setScene(scene);
 
         DetailedController controller = loader.getController();
-        controller.setStage(stage);
+        controller.setStage();
         controller.findInstanceByIndex(index);
         stage.showAndWait();
     }
@@ -130,7 +129,7 @@ public class MainView extends Application {
     /**
      * Initializes the root layout.
      */
-    public void initRootLayout() {
+    private void initRootLayout() {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
@@ -149,7 +148,7 @@ public class MainView extends Application {
     /**
      * Shows the person overview inside the root layout.
      */
-    public void showBookOverview() {
+    private void showBookOverview() {
         try {
             // Load book overview.
             FXMLLoader loader = new FXMLLoader();
@@ -169,7 +168,6 @@ public class MainView extends Application {
 
     /**
      * Returns the main stage.
-     * @return
      */
     public Stage getPrimaryStage() {
         return primaryStage;
