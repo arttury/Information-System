@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bookInstances>
+    <bookInstance>
+        <books>
+            <authors>hbjk</authors>
+            <date>2019-05-27</date>
+            <pages>1</pages>
+            <title>jk</title>
+        </books>
+        <id>123</id>
+        <issued>true</issued>
+    </bookInstance>
+</bookInstances>
