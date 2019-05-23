@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.FilterInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class MyInputStream extends FilterInputStream {
@@ -16,6 +17,10 @@ public class MyInputStream extends FilterInputStream {
 
     @Override
     public void close() {
-        LOGGER.info("Closing");
+        try {
+            in.close();
+        } catch (IOException e) {
+            LOGGER.info(e);
+        }
     }
 }
