@@ -25,7 +25,7 @@ public class BookInstancesHandler implements BookHandler {
     private static int counter;
 
     public void add(String message) {
-        LOGGER.info("Add method has invoked");
+        LOGGER.info("Add book instance method has invoked");
         LOGGER.info(message);
         String msg = message.substring(14);
         BookInstances bookInstances = new BookInstances();
@@ -50,7 +50,7 @@ public class BookInstancesHandler implements BookHandler {
     }
 
     public void delete(String message) {
-        LOGGER.info("Delete method has invoked");
+        LOGGER.info("Delete book instance method has invoked");
         try {
             JAXBContext bookContext = JAXBContext.newInstance(BookInstances.class);
             FileOutputStream fileOutputStream = new FileOutputStream(BOOK_FILE);
@@ -73,7 +73,7 @@ public class BookInstancesHandler implements BookHandler {
     }
 
     public void edit(String message) {
-        LOGGER.info("Edit method has invoked");
+        LOGGER.info("Edit book instance method has invoked");
         String newString = message.substring(16);
         LOGGER.info(newString);
         int index = Integer.valueOf(message.substring(15, 16));
@@ -108,7 +108,7 @@ public class BookInstancesHandler implements BookHandler {
     }
 
     public String load() {
-        LOGGER.info("Method load has invoked");
+        LOGGER.info("Method load book instance has invoked");
 
         StringBuilder stringBuilder = new StringBuilder();
         String xml = null;

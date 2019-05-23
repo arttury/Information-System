@@ -29,12 +29,10 @@ public class ClientHandler implements Runnable {
                 (new MyInputStream(socket.getInputStream())));
             PrintWriter printWriter = new PrintWriter(socket.getOutputStream())
         ) {
-            LOGGER.info("Handler started to work");
+            LOGGER.info("Client connected " + socket.getInetAddress());
             BookHandler booksController = new BooksHandler();
             BookHandler bookInstancesController = new BookInstancesHandler();
             String message = inputBufferedReader.readLine();
-
-            LOGGER.info(message);
 
             bookHandler(printWriter, booksController, message);
 
