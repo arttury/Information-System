@@ -22,6 +22,24 @@ public class BooksHandler implements BookHandler {
     private static List<Book> bookList = new ArrayList<>();
     private static int counter;
 
+    static {
+        try {
+            JAXBContext context = JAXBContext.newInstance(Books.class);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+
+            Books books = (Books) unmarshaller.unmarshal(new FileReader(BOOK_FILE));
+
+            bookList.addAll(books.getBookList());
+
+            for (Book book : bookList) {
+                System.out.println(book);
+            }
+
+        } catch (JAXBException | FileNotFoundException e) {
+            LOGGER.info(e);
+        }
+    }
+
     public String load() {
         LOGGER.info("Method load has invoked");
 

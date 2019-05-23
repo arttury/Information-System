@@ -2,12 +2,32 @@
 <bookInstances>
     <bookInstance>
         <books>
-            <authors>hbjk</authors>
-            <date>2019-05-27</date>
-            <pages>1</pages>
-            <title>jk</title>
+            <authors>rty</authors>
+            <date>2019-05-23</date>
+            <pages>12</pages>
+            <title>t</title>
         </books>
-        <id>123</id>
+        <id>1</id>
+        <issued>true</issued>
+    </bookInstance>
+    <bookInstance>
+        <books>
+            <authors>u</authors>
+            <date>2019-05-23</date>
+            <pages>1</pages>
+            <title>u</title>
+        </books>
+        <id>2</id>
+        <issued>true</issued>
+    </bookInstance>
+    <bookInstance>
+        <books>
+            <authors>rty</authors>
+            <date>2019-05-23</date>
+            <pages>12</pages>
+            <title>t</title>
+        </books>
+        <id>4</id>
         <issued>true</issued>
     </bookInstance>
 </bookInstances>

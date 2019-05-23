@@ -73,7 +73,8 @@ public class BookOverviewController {
 
     public void edit() {
         LOGGER.info("Edit");
-        getMainView().editBookInstance();
+        int index = mainLV.getSelectionModel().getSelectedIndex();
+        getMainView().editBookInstance(index);
         refreshBookInstances();
     }
 
@@ -86,8 +87,10 @@ public class BookOverviewController {
     private void refreshBookInstances() {
         bookInstancesObservableList.clear();
         BookInstances bookInstances = Client.loadSavedBookInstances();
-        bookInstancesObservableList.addAll(bookInstances.getList());
-        mainLV.setItems(bookInstancesObservableList);
+        if (bookInstances != null) {
+            bookInstancesObservableList.addAll(bookInstances.getList());
+            mainLV.setItems(bookInstancesObservableList);
+        }
     }
 
     public void detailed() {
