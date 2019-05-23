@@ -76,7 +76,7 @@ public class MainView extends Application {
         stage.showAndWait();
     }
 
-    public void editBookInstance() {
+    public void editBookInstance(int index) {
         System.out.println("Add book instance");
         FXMLLoader loader = new  FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/addEdit.fxml"));
@@ -98,6 +98,7 @@ public class MainView extends Application {
 
         AddEditController controller = loader.getController();
         controller.setStage(stage);
+        controller.getIndex(index);
         stage.showAndWait();
     }
 

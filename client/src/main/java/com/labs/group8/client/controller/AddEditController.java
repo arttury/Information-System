@@ -11,14 +11,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 
 public class AddEditController {
-
-    private static final Logger LOGGER = LogManager.getLogger(AddEditController.class);
 
     @FXML private TextField idTextField;
     @FXML private ChoiceBox bookChoiceBox;
@@ -27,6 +23,7 @@ public class AddEditController {
     private Stage stage;
     private ObservableList bookObservableList = FXCollections.observableArrayList();
     private ArrayList<Book> list = new ArrayList<>();
+    private int i = 0;
 
     public void initialize() {
         Books books = Client.loadSavedData();
@@ -53,16 +50,19 @@ public class AddEditController {
     }
 
     public void edit() {
-        int index = bookChoiceBox.getSelectionModel().getSelectedIndex();
+        int index = i;
         Book book = (Book) bookChoiceBox.getSelectionModel().getSelectedItem();
-        list.add(index, book);
+        list.add(book);
 
         int id = Integer.parseInt(idTextField.getText());
         boolean isIssued = issuedCheckBox.isSelected();
 
         BookInstance instance = new BookInstance(id, list, isIssued);
-        Client.editBookInstance(id, instance);
-        LOGGER.info(instance);
+        Client.editBookInstance(index, instance);
         stage.close();
+    }
+
+    public void getIndex(int index) {
+        i = index;
     }
 }

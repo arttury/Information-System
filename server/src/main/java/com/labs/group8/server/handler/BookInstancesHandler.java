@@ -24,6 +24,24 @@ public class BookInstancesHandler implements BookHandler {
     private static List<BookInstance> bookList = new ArrayList<>();
     private static int counter;
 
+    static {
+        try {
+            JAXBContext context = JAXBContext.newInstance(BookInstances.class);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            BookInstances bookInstances = (BookInstances) unmarshaller.unmarshal(new FileReader(BOOK_FILE));
+
+            bookList.addAll(bookInstances.getList());
+
+            counter = bookList.size();
+
+            for (BookInstance bookInstance : bookList) {
+                System.out.println(bookInstance);
+            }
+        } catch (JAXBException | FileNotFoundException e) {
+            LOGGER.info(e);
+        }
+    }
+
     public void add(String message) {
         LOGGER.info("Add book instance method has invoked");
         LOGGER.info(message);
@@ -88,10 +106,11 @@ public class BookInstancesHandler implements BookHandler {
                 FileOutputStream fileOutputStream = new FileOutputStream(BOOK_FILE);
 
                 BookInstance bookInstance = (BookInstance) unmarshaller.unmarshal(new StringReader(newString));
-                bookInstance.getBooks().remove(index);
-                counter--;
+
                 bookInstances.getList().add(index, bookInstance);
                 counter++;
+                bookInstances.getList().remove(index + 1);
+                counter--;
 
                 Marshaller bookMarshaller = bookContext.createMarshaller();
                 bookMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
