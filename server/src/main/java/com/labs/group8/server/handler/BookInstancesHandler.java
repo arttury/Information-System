@@ -99,10 +99,6 @@ public class BookInstancesHandler implements BookHandler {
         BookInstances bookInstances = new BookInstances();
         bookInstances.setList(bookList);
 
-        System.out.println("Bookinstances getList size is: " + bookInstances.getList().size());
-        System.out.println("counter: " + counter);
-        System.out.println("index: " + index);
-
         if (index <= counter) {
             try {
                 JAXBContext bookContext = JAXBContext.newInstance(BookInstances.class);
