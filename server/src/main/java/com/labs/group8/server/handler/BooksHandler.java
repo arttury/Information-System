@@ -10,14 +10,15 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class BooksHandler implements BookHandler {
     private static final Logger LOGGER = LogManager.getLogger(BooksHandler.class);
-    private static final File BOOK_FILE = new File("C:\\Users\\User\\Desktop\\informationalsystem\\" +
-            "server\\src\\main\\resources\\book.xml");
+    private static final URL URL = BooksHandler.class.getResource("/book.xml");
+    private static final File BOOK_FILE = new File(URL.getPath());
 
     private static List<Book> bookList = new ArrayList<>();
     private static int counter;
@@ -26,15 +27,8 @@ public class BooksHandler implements BookHandler {
         try {
             JAXBContext context = JAXBContext.newInstance(Books.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-
             Books books = (Books) unmarshaller.unmarshal(new FileReader(BOOK_FILE));
-
             bookList.addAll(books.getBookList());
-
-            for (Book book : bookList) {
-                System.out.println(book);
-            }
-
         } catch (JAXBException | FileNotFoundException e) {
             LOGGER.info(e);
         }
