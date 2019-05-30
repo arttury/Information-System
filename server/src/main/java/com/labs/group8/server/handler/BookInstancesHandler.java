@@ -10,7 +10,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,8 +17,7 @@ import java.util.Objects;
 public class BookInstancesHandler implements BookHandler {
 
     private static final Logger LOGGER = LogManager.getLogger(BooksHandler.class);
-    private static final URL URL = BookInstancesHandler.class.getResource("/bookInstance.xml");
-    private static final File BOOK_FILE = new File(URL.getPath());
+    private static final File BOOK_FILE = new File(System.getProperty("user.dir"), "/bookInstance.xml");
 
     private static List<BookInstance> bookList = new ArrayList<>();
     private static int counter;
